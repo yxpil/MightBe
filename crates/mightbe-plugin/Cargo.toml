@@ -1,0 +1,9 @@
+[package]
+name = "mightbe-plugin"
+description = "MightBe 层插件 SDK：用户用本 crate 编写自定义层并编译为 cdylib（README 4.1.1 路径 C）"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]

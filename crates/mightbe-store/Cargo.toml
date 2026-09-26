@@ -1,0 +1,19 @@
+[package]
+name = "mightbe-store"
+description = "MightBe 存储引擎：MDB 加密文件（页/WAL/checkpoint）、Catalog、系统表、表扫描接口"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+mightbe-core.workspace = true
+serde.workspace = true
+thiserror.workspace = true
+crc32fast.workspace = true
+sha2.workspace = true
+zeroize.workspace = true
+
+# M2 加密面（README 11.1）
+aes-gcm.workspace = true
+argon2.workspace = true

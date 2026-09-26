@@ -1,0 +1,23 @@
+[package]
+name = "mightbe-core"
+description = "MightBe 核心引擎：Tensor、自动微分、内置层、优化器、数学函数、计算后端（CPU 优先）"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[features]
+default = []
+# M9 起：GPU/NPU 加速后端（feature gate，默认构建零依赖）
+gpu = []
+npu = []
+simd = []
+
+[dependencies]
+# 只借用插件 ABI 的布局类型（SDK 是零依赖叶子，不构成模块环，见 README 4.1.1）
+mightbe-plugin.workspace = true
+serde.workspace = true
+thiserror.workspace = true
+zeroize.workspace = true
+rand.workspace = true
+rand_chacha.workspace = true

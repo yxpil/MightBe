@@ -1,0 +1,70 @@
+# MightBe workspace 清单（M0 骨架）
+# 模块依赖方向（只允许向下，禁止环）：
+# server -> sql -> {net, reason} -> {nlp, store} -> core
+# plugin 为对外 SDK：零依赖叶子，不反向依赖任何内部 crate；
+# core::plugin 复用它的 ABI 布局类型（唯一允许的向上依赖方向例外）。
+[workspace]
+resolver = "2"
+members = [
+    "crates/mightbe-core",
+    "crates/mightbe-plugin",
+    "crates/mightbe-store",
+    "crates/mightbe-nlp",
+    "crates/mightbe-net",
+    "crates/mightbe-reason",
+    "crates/mightbe-sql",
+    "crates/mightbe-server",
+    "crates/mightbe-cli",
+    # 测试用 cdylib：必须进 workspace 才能用 `workspace = true` 并作为 `-p` 目标
+    "tests/mbp-demo",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/yxpil/MightBe"
+
+[workspace.dependencies]
+# 基础设施（非算法）：仅限下列白名单，见 README 第 15 章
+tokio = { version = "1", features = ["rt-multi-thread", "net", "io-util", "macros", "signal"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "0.8"
+thiserror = "2"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+dashmap = "6"
+arc-swap = "1"
+parking_lot = "0.12"
+sha2 = "0.10"
+crc32fast = "1"
+clap = { version = "4", features = ["derive"] }
+rand = "0.8"
+rand_chacha = "0.3"
+# 动态库加载不引入 libloading（离线环境不可得）：core::plugin 自带 FFI 加载器
+aes-gcm = "0.10"
+argon2 = "0.5"
+zeroize = { version = "1", features = ["derive"] }
+subtle = "2"
+unicode-normalization = "0.1"
+
+# workspace 内部 crate
+mightbe-core = { path = "crates/mightbe-core", default-features = false }
+mightbe-plugin = { path = "crates/mightbe-plugin" }
+mightbe-store = { path = "crates/mightbe-store" }
+mightbe-nlp = { path = "crates/mightbe-nlp" }
+mightbe-net = { path = "crates/mightbe-net" }
+mightbe-reason = { path = "crates/mightbe-reason" }
+mightbe-sql = { path = "crates/mightbe-sql" }
+
+# 优化 profile
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+
+[profile.dev]
+opt-level = 0
+debug = true

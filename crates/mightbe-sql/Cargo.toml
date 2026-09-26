@@ -1,0 +1,16 @@
+[package]
+name = "mightbe-sql"
+description = "MightBe SQL 方言：词法/递归下降解析、火山执行器、SQL 数学函数与向量检索入口"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+mightbe-core.workspace = true
+mightbe-store.workspace = true
+mightbe-nlp.workspace = true
+mightbe-net.workspace = true
+mightbe-reason.workspace = true
+serde.workspace = true
+thiserror.workspace = true

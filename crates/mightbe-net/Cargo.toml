@@ -1,0 +1,18 @@
+[package]
+name = "mightbe-net"
+description = "MightBe 网络运行时：配置驱动定义、头格式校验、多版本快照、TRAIN/INFER、热更新"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+mightbe-core.workspace = true
+mightbe-plugin.workspace = true
+mightbe-nlp.workspace = true
+mightbe-store.workspace = true
+serde.workspace = true
+thiserror.workspace = true
+toml.workspace = true
+dashmap.workspace = true
+arc-swap.workspace = true

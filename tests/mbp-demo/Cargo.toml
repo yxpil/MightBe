@@ -1,0 +1,14 @@
+[package]
+name = "mbp-demo"
+description = "插件全链路测试用 cdylib（README 16.3：加载→前向→反向→RELOAD→panic 隔离）"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+mightbe-plugin.workspace = true

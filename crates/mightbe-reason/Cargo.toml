@@ -1,0 +1,15 @@
+[package]
+name = "mightbe-reason"
+description = "MightBe 推理层：联想检索、多跳合理推理（束搜索+证据+校准+弃判）、字段/表关系学习与规则挖掘"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+mightbe-core.workspace = true
+mightbe-nlp.workspace = true
+mightbe-net.workspace = true
+mightbe-store.workspace = true
+serde.workspace = true
+thiserror.workspace = true

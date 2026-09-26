@@ -1,0 +1,25 @@
+[package]
+name = "mightbe-server"
+description = "MightBe 服务层：TCP 文本协议、会话、启动装配、训练任务登记、优雅停机"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+mightbe-core.workspace = true
+mightbe-sql.workspace = true
+mightbe-net.workspace = true
+mightbe-reason.workspace = true
+mightbe-store.workspace = true
+mightbe-nlp.workspace = true
+
+serde.workspace = true
+toml.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+arc-swap.workspace = true
+dashmap.workspace = true
+parking_lot.workspace = true

@@ -1,0 +1,13 @@
+[package]
+name = "mightbe-nlp"
+description = "MightBe NLP 管线：规范化、分词、词表、TF-IDF/TextRank、共现统计、关键词"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+mightbe-core.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+unicode-normalization.workspace = true
