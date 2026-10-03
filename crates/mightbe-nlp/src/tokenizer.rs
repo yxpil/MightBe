@@ -176,4 +176,31 @@ mod tests {
         assert!(set.contains("the"));
         assert_eq!(set.len(), 4);
     }
+
+    // ── 注入安全：正文是不可信输入。分词器只认 [A-Za-z0-9] 与 CJK，
+    //    标签尖括号、路径分隔符都只是标点/分隔符，绝不被当成结构解释。 ──
+
+    #[test]
+    fn html_tags_are_punctuation_not_tokens() {
+        let t = tk();
+        let toks = t.tokenize("<script>alert('xss')</script>");
+        // 标签符号本身不进入词表；脚本内容被降级为普通拉丁词
+        assert!(toks.iter().all(|w| !w.contains('<') && !w.contains('>')), "{toks:?}");
+        assert!(toks.contains(&"alert".to_string()));
+        assert!(toks.contains(&"xss".to_string()));
+    }
+
+    #[test]
+    fn path_traversal_is_lexical_only_no_semantics() {
+        let t = tk();
+        // 正文里出现路径穿越串：点号/反斜杠当分隔符，绝不解释成文件路径
+        let toks = t.tokenize("../../etc/passwd ..\\..\\windows\\system32");
+        assert!(toks.contains(&"etc".to_string()));
+        assert!(toks.contains(&"passwd".to_string()));
+        assert!(toks.contains(&"system32".to_string()));
+        assert!(
+            toks.iter().all(|w| !w.starts_with('.') && !w.contains('/') && !w.contains('\\')),
+            "没有任何 token 携带路径分隔符: {toks:?}"
+        );
+    }
 }

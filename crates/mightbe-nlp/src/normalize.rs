@@ -142,4 +142,26 @@ mod tests {
         });
         assert_eq!(n.normalize("Hello WORLD"), "Hello WORLD");
     }
+
+    // ── 注入安全：文档正文是不可信输入，规范化只做 Unicode/大小写/折叠，
+    //    绝不应"解释"其中的脚本标签或控制序列。 ──
+
+    #[test]
+    fn xss_payload_is_text_not_executed() {
+        let n = Normalizer::new(NormalizeConfig::default());
+        // 脚本标签只是字符：规范化不会执行它，只把 ASCII 折叠为小写、折叠空白。
+        let out = n.normalize("<Script>alert('XSS')</Script>");
+        assert!(out.starts_with('<'), "尖括号应原样保留为文本: {out}");
+        assert!(out.contains("<script>alert('xss')</script>"));
+    }
+
+    #[test]
+    fn embedded_nul_and_control_chars_are_neutralized_not_crashing() {
+        let n = Normalizer::new(NormalizeConfig::default());
+        // 内嵌 NUL、CR/LF/Tab：必须安全返回，不 panic、不越界；连续空白被折叠。
+        let out = n.normalize("hello\u{0000}world\t\r\n  low");
+        assert!(out.contains("hello"), "{out:?}");
+        assert!(out.contains("world"), "{out:?}");
+        assert!(!out.contains('\t'), "tab 应被空白折叠吃掉: {out:?}");
+    }
 }
