@@ -1,5 +1,12 @@
 # MightBe 测试说明
 
+- 测试完成：是（2026-10-04）
+- 测试日期：2026-10-04
+- 测试内容：单元覆盖 mightbe-core（张量/自动微分/层/优化器/DSL/composite）与 mightbe-nlp（规范化/分词/词表/共现/关键词）；集成覆盖 XOR/TextCNN/GRU 训练收敛与插件加载→前向→反向→热替换链路；注入测试覆盖 NLP 对 XSS/SQL 片段/路径穿越/NUL 字节的处理；钩子测试覆盖插件层未注册层拒绝、失败钩子隔离兄弟钩子、NUL 配置拒绝、层名路径穿越仅作符号键。
+- 运行命令：`cargo test`（workspace）
+- 测试框架：Rust #[cfg(test)]
+- 模型：豆包（Doubao）生成
+
 本仓库是 Cargo workspace（9 个内部 crate + 1 个测试用 cdylib `tests/mbp-demo`）。
 Rust 集成测试按惯例放在**各 crate 自己的 `tests/` 目录**（workspace 根没有根 package，无法在仓库根挂集成测试 target），单元测试留在各 `src/*.rs` 内的 `#[cfg(test)] mod tests`。
 
