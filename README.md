@@ -1375,3 +1375,15 @@ M2 十条集成用例：`catalog_survives_reopen`、`ten_k_rows_scan_back_after_
 ---
 
 *本 README 即项目蓝图。进入编码前，如对架构、SQL 方言、头格式字段或里程碑有修改意见，先更新此文档，再动代码。*
+
+---
+
+<div align="center">
+
+<a href="https://github.com/yxpil/MightBe">
+  <img width="100%" src="https://alittlecatgirlpanel.yxp.hk/card?repo=yxpil/MightBe" alt="gh-card · yxpil/MightBe" />
+</a>
+
+<sub>Powered by <a href="https://alittlecatgirlpanel.yxp.hk"><b>gh-card</b></a> · 粉色手写体 README 仓库名片</sub>
+
+</div>
